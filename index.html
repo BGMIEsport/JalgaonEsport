@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>JLG19 • Jalgaon BGMI Esports Tournament 2026</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron:wght@700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:#05080f;color:#fff;line-height:1.5;overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse at 15% 0%,rgba(0,120,255,.18) 0%,transparent 50%),
+    radial-gradient(ellipse at 85% 100%,rgba(255,140,0,.10) 0%,transparent 50%),
+    linear-gradient(180deg,#05080f 0%,#02040a 100%);
+  min-height:100vh;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,180,255,.025) 3px,rgba(0,180,255,.025) 4px),
+    repeating-linear-gradient(90deg,transparent 0,transparent 3px,rgba(0,180,255,.025) 3px,rgba(0,180,255,.025) 4px);
+}
+h1,h2,h3,.bf{font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px}
+.orb{font-family:'Orbitron',sans-serif}
+
+/* ---------- TOP BAR ---------- */
+.topbar{
+  background:linear-gradient(90deg,#0a1424,#0d1e36,#0a1424);
+  border-bottom:1px solid rgba(0,180,255,.35);
+  padding:10px 18px;position:sticky;top:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  backdrop-filter:blur(10px);
+}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.crest{width:46px;height:46px;flex-shrink:0}
+.brand-txt h1{font-size:1.5rem;line-height:1;background:linear-gradient(to right,#fff,#7fc9ff,#ffb84d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.brand-txt span{font-size:.65rem;letter-spacing:3px;color:#7fb8ff;font-weight:600}
+.top-actions{display:flex;gap:8px}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;background:rgba(0,140,255,.12);
+  border:1px solid rgba(0,180,255,.4);color:#7fc9ff;display:flex;
+  align-items:center;justify-content:center;cursor:pointer;transition:.2s;font-size:1rem;
+}
+.icon-btn:hover{background:rgba(0,180,255,.3);color:#fff;transform:scale(1.1)}
+
+/* ---------- CONTAINER ---------- */
+.container{max-width:1200px;margin:0 auto;padding:16px 16px 80px}
+
+/* ---------- HERO ---------- */
+.hero{
+  text-align:center;padding:40px 20px 30px;position:relative;
+  background:
+    radial-gradient(ellipse at center,rgba(0,120,255,.15) 0%,transparent 70%),
+    linear-gradient(180deg,rgba(0,40,80,.4) 0%,transparent 100%);
+  border-radius:30px;margin-bottom:24px;overflow:hidden;
+  border:1px solid rgba(0,180,255,.2);
+}
+.hero::before{
+  content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:conic-gradient(from 0deg,transparent,rgba(0,180,255,.08),transparent 30%);
+  animation:spin 12s linear infinite;pointer-events:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-content{position:relative;z-index:2}
+.hero h2{
+  font-size:clamp(2rem,7vw,4rem);line-height:1;
+  background:linear-gradient(180deg,#fff,#8ecfff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:8px;text-shadow:0 0 40px rgba(0,150,255,.5);
+}
+.hero p.tagline{color:#9dc8ff;font-size:.95rem;letter-spacing:2px;margin-bottom:6px;font-weight:600}
+.hero .location{color:#ffb84d;font-size:.85rem;letter-spacing:2px;font-weight:700}
+.hero .location i{margin-right:6px}
+
+/* ---------- COUNTDOWN ---------- */
+.countdown-wrap{
+  display:flex;justify-content:center;gap:10px;margin:24px 0 8px;flex-wrap:wrap;
+}
+.cd-box{
+  background:linear-gradient(180deg,#0d1e36,#081424);
+  border:1px solid rgba(0,180,255,.5);border-radius:14px;
+  min-width:74px;padding:12px 8px;text-align:center;
+  box-shadow:0 0 20px rgba(0,150,255,.25),inset 0 0 20px rgba(0,120,255,.08);
+}
+.cd-num{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:#fff;line-height:1;text-shadow:0 0 15px #00aaff}
+.cd-lbl{font-size:.65rem;color:#7fb8ff;letter-spacing:2px;margin-top:4px;font-weight:600}
+
+/* ---------- MEME TICKER ---------- */
+.meme-ticker{
+  background:linear-gradient(90deg,#0d1e36,#132a4d,#0d1e36);
+  border:1px solid rgba(0,180,255,.3);border-radius:12px;
+  padding:10px 14px;margin:16px 0;overflow:hidden;white-space:nowrap;
+  font-size:.9rem;color:#ffd966;font-weight:600;
+}
+.meme-ticker span{display:inline-block;padding-left:100%;animation:marquee 28s linear infinite}
+@keyframes marquee{to{transform:translateX(-100%)}}
+
+/* ---------- SECTION ---------- */
+.section{margin-bottom:28px}
+.sec-title{
+  display:flex;align-items:center;gap:12px;font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;letter-spacing:2px;padding-left:14px;
+  border-left:4px solid #00c8ff;margin-bottom:18px;color:#e0f0ff;
+}
+.sec-title i{color:#00e0ff;font-size:1.5rem}
+
+/* ---------- CARD ---------- */
+.card{
+  background:linear-gradient(180deg,rgba(13,30,54,.9),rgba(8,20,36,.9));
+  border:1px solid rgba(0,180,255,.25);border-radius:20px;
+  padding:20px;margin-bottom:18px;backdrop-filter:blur(8px);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  transition:.2s;
+}
+.card:hover{border-color:rgba(0,200,255,.5)}
+
+/* ---------- PRIZE POOL HERO ---------- */
+.prize-hero{
+  text-align:center;padding:30px 16px;border-radius:24px;
+  background:linear-gradient(135deg,rgba(255,180,0,.08),rgba(255,100,0,.05));
+  border:1px solid rgba(255,200,0,.4);margin-bottom:20px;position:relative;overflow:hidden;
+}
+.prize-hero::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(255,220,100,.2),transparent 60%);
+  animation:pulse 3s ease-in-out infinite;pointer-events:none;
+}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+.prize-amt{
+  font-family:'Orbitron',sans-serif;font-weight:900;
+  font-size:clamp(2.2rem,8vw,4rem);line-height:1;
+  background:linear-gradient(180deg,#fff8b0,#ffb000,#ff6a00);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 25px rgba(255,180,0,.5));position:relative;z-index:2;
+}
+.prize-lbl{color:#ffd97a;font-size:.85rem;letter-spacing:4px;font-weight:700;margin-top:6px;position:relative;z-index:2}
+
+/* ---------- MATCH GRID ---------- */
+.match-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.match-card{
+  background:linear-gradient(160deg,rgba(13,30,54,.95),rgba(5,12,24,.95));
+  border:1px solid rgba(0,180,255,.3);border-radius:18px;padding:18px;
+  position:relative;overflow:hidden;transition:.3s;
+}
+.match-card:hover{transform:translateY(-4px);border-color:#00c8ff;box-shadow:0 15px 40px rgba(0,150,255,.3)}
+.match-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#00e0ff,#0088ff,#ff8800);
+}
+.match-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.match-head h3{font-size:1.4rem;color:#fff}
+.match-badge{
+  font-size:.7rem;padding:4px 10px;border-radius:20px;font-weight:700;
+  background:rgba(0,200,255,.15);border:1px solid rgba(0,200,255,.5);color:#7fdfff;letter-spacing:1px;
+}
+.match-time{font-size:.8rem;color:#8ecfff;margin-bottom:12px}
+.match-time i{color:#ffb84d;margin-right:4px}
+.prize-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.prize-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 12px;border-radius:10px;
+  background:rgba(0,60,120,.25);border-left:3px solid #0088ff;
+  font-size:.85rem;
+}
+.prize-row.gold{border-left-color:#ffd700;background:linear-gradient(90deg,rgba(255,215,0,.12),rgba(0,60,120,.2))}
+.prize-row.silver{border-left-color:#c0c0c0;background:linear-gradient(90deg,rgba(192,192,192,.1),rgba(0,60,120,.2))}
+.prize-row.bronze{border-left-color:#cd7f32;background:linear-gradient(90deg,rgba(205,127,50,.1),rgba(0,60,120,.2))}
+.prize-row span:last-child{color:#ffd966;font-weight:800;font-family:'Orbitron',sans-serif}
+.entry-fee{
+  text-align:center;padding:10px;border-radius:10px;
+  background:linear-gradient(135deg,#0066cc,#00aaff);
+  color:#fff;font-weight:800;letter-spacing:2px;font-size:.9rem;
+  box-shadow:0 5px 15px rgba(0,120,255,.4);
+}
+.entry-fee.orange{background:linear-gradient(135deg,#cc5500,#ff8800);box-shadow:0 5px 15px rgba(255,120,0,.4)}
+
+/* ---------- PAYMENT ---------- */
+.pay-flex{display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:center}
+.qr-frame{
+  background:#fff;padding:14px;border-radius:20px;
+  box-shadow:0 0 40px rgba(0,180,255,.6);position:relative;flex-shrink:0;
+}
+.qr-frame::before{
+  content:"";position:absolute;inset:-3px;border-radius:22px;
+  background:linear-gradient(45deg,#ff6a00,#00aaff,#ffd700,#00aaff);
+  z-index:-1;animation:spin 4s linear infinite;filter:blur(3px);
+}
+#qrcode{display:flex;justify-content:center;align-items:center}
+#qrcode img{display:block;width:180px;height:180px}
+.qr-caption{text-align:center;font-size:.7rem;color:#0a2a4a;font-weight:700;margin-top:8px;letter-spacing:1px}
+.pay-details{flex:1;min-width:240px}
+.upi-box{
+  background:#031426;border:1px solid #00aaff;border-radius:12px;
+  padding:14px;word-break:break-all;font-family:'Orbitron',monospace;
+  font-size:.85rem;color:#7fdfff;margin-bottom:12px;position:relative;
+}
+.upi-box button{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  background:rgba(0,170,255,.2);border:1px solid #00aaff;color:#7fdfff;
+  padding:6px 10px;border-radius:8px;font-size:.7rem;cursor:pointer;font-weight:700;
+}
+.upi-box button:hover{background:#00aaff;color:#fff}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,#0066cc,#00aaff);color:#fff;font-weight:800;
+  padding:14px 24px;border-radius:60px;border:none;font-size:1rem;
+  cursor:pointer;transition:.2s;width:100%;letter-spacing:1px;
+  box-shadow:0 8px 25px rgba(0,120,255,.4);text-transform:uppercase;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(0,180,255,.6)}
+.btn.orange{background:linear-gradient(135deg,#cc5500,#ff8800);box-shadow:0 8px 25px rgba(255,120,0,.4)}
+.btn.green{background:linear-gradient(135deg,#008a4a,#00cc66);box-shadow:0 8px 25px rgba(0,200,100,.4)}
+.btn.dark{background:linear-gradient(135deg,#1a2d4a,#0a1525);border:1px solid #0088ff}
+
+/* ---------- FORM ---------- */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.fg{display:flex;flex-direction:column}
+.fg label{font-size:.8rem;color:#8ecfff;margin-bottom:6px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.fg input,.fg select{
+  padding:13px 16px;border-radius:12px;background:#031426;
+  border:1px solid #005588;color:#fff;font-size:.95rem;outline:none;
+  transition:.2s;font-family:inherit;
+}
+.fg input:focus,.fg select:focus{border-color:#00c8ff;box-shadow:0 0 15px rgba(0,180,255,.4)}
+.fg input::placeholder{color:#4a7aa0}
+.code-box{
+  margin-top:14px;padding:16px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(255,180,0,.1),rgba(0,120,255,.08));
+  border:2px dashed rgba(255,200,0,.6);text-align:center;
+}
+.code-box .lbl{font-size:.75rem;color:#ffd97a;letter-spacing:3px;font-weight:700}
+.code-box .val{font-family:'Orbitron',monospace;font-size:1.6rem;font-weight:900;color:#fff;margin-top:6px;letter-spacing:3px;text-shadow:0 0 20px #ffb84d}
+
+/* ---------- RULES ---------- */
+.rules-list{list-style:none}
+.rules-list li{
+  padding:10px 0;border-bottom:1px solid rgba(0,180,255,.12);
+  display:flex;gap:12px;align-items:flex-start;color:#cce6ff;font-size:.92rem;
+}
+.rules-list li i{color:#00e0ff;margin-top:4px;flex-shrink:0}
+.rules-list li:last-child{border-bottom:none}
+
+/* ---------- SLOGAN STRIP ---------- */
+.slogan-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px;
+}
+.slogan-card{
+  padding:16px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(255,140,0,.1),rgba(0,120,255,.08));
+  border:1px solid rgba(255,180,0,.4);text-align:center;
+  font-weight:700;color:#ffd97a;font-size:.95rem;
+  position:relative;overflow:hidden;
+}
+.slogan-card::before{content:"❝";position:absolute;top:-10px;left:8px;font-size:3rem;color:rgba(255,180,0,.2);font-family:serif}
+.slogan-card small{display:block;color:#9dc8ff;font-size:.7rem;margin-top:6px;letter-spacing:2px}
+
+/* ---------- MOTIVATION ---------- */
+.motiv{
+  text-align:center;padding:24px 16px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(220,0,80,.1),rgba(255,120,0,.08));
+  border:1px solid rgba(255,100,100,.35);margin-bottom:20px;
+}
+.motiv p{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px;color:#fff;text-shadow:0 0 20px rgba(255,100,100,.6)}
+.motiv small{color:#ffb84d;letter-spacing:3px;font-size:.75rem;font-weight:700;display:block;margin-top:6px}
+
+/* ---------- ADMIN MODAL ---------- */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(0,5,15,.95);z-index:9999;
+  display:none;align-items:center;justify-content:center;padding:16px;
+  backdrop-filter:blur(10px);
+}
+.modal-bg.show{display:flex}
+.modal{
+  background:linear-gradient(180deg,#0d1e36,#05080f);
+  border:1px solid #00aaff;border-radius:20px;padding:24px;
+  max-width:1100px;width:100%;max-height:90vh;overflow-y:auto;
+  box-shadow:0 0 60px rgba(0,150,255,.5);
+}
+.modal h2{font-size:1.8rem;color:#7fdfff;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.modal h2 button{background:none;border:1px solid #0088ff;color:#7fdfff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:16px}
+.stat-box{background:rgba(0,120,255,.1);border:1px solid rgba(0,180,255,.4);border-radius:12px;padding:12px;text-align:center}
+.stat-box .num{font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:900;color:#ffd966}
+.stat-box .lbl{font-size:.7rem;color:#8ecfff;letter-spacing:2px;margin-top:4px;font-weight:600}
+.admin-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.admin-tools input{flex:1;min-width:180px;padding:10px 14px;border-radius:30px;background:#031426;border:1px solid #005588;color:#fff;outline:none}
+.admin-tools button{padding:10px 16px;border-radius:30px;background:rgba(0,120,255,.2);border:1px solid #0088ff;color:#7fdfff;font-weight:700;cursor:pointer;font-size:.85rem}
+.admin-tools button:hover{background:#00aaff;color:#fff}
+.tbl-wrap{overflow-x:auto;border-radius:12px;background:#031426}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th{background:#0a2440;color:#7fdfff;padding:10px;text-align:left;letter-spacing:1px;font-size:.75rem;text-transform:uppercase;white-space:nowrap}
+td{padding:10px;border-bottom:1px solid #0a2440;color:#d9f0ff;white-space:nowrap}
+tr:hover td{background:rgba(0,120,255,.08)}
+.pill{display:inline-block;padding:3px 8px;border-radius:20px;font-size:.7rem;font-weight:700}
+.pill.solo{background:rgba(0,200,255,.2);color:#7fdfff;border:1px solid #00aaff}
+.pill.duo{background:rgba(255,180,0,.2);color:#ffd966;border:1px solid #ffb000}
+.pill.squad{background:rgba(255,80,80,.2);color:#ff9999;border:1px solid #ff5555}
+.pill.paid{background:rgba(0,220,100,.2);color:#7fffa0;border:1px solid #00cc66}
+.pill.pending{background:rgba(255,180,0,.2);color:#ffd966;border:1px solid #ffb000}
+.empty{text-align:center;padding:30px;color:#5a7fa0}
+
+/* ---------- LOCK SCREEN (admin login) ---------- */
+.lock-screen{
+  position:fixed;inset:0;background:rgba(0,5,15,.98);z-index:10000;
+  display:none;align-items:center;justify-content:center;padding:16px;
+  backdrop-filter:blur(20px);
+}
+.lock-screen.show{display:flex}
+.lock-box{
+  background:linear-gradient(180deg,#0d1e36,#05080f);
+  border:1px solid #00aaff;border-radius:20px;padding:32px 24px;
+  max-width:380px;width:100%;text-align:center;
+  box-shadow:0 0 60px rgba(0,150,255,.6);
+}
+.lock-box i{font-size:3rem;color:#ffb84d;margin-bottom:12px}
+.lock-box h3{font-size:1.6rem;color:#7fdfff;margin-bottom:6px}
+.lock-box p{color:#8ecfff;font-size:.85rem;margin-bottom:18px}
+.lock-box input{
+  width:100%;padding:14px;border-radius:12px;background:#031426;
+  border:1px solid #005588;color:#fff;font-size:1rem;text-align:center;
+  letter-spacing:6px;font-family:'Orbitron',monospace;outline:none;margin-bottom:12px;
+}
+.lock-box input:focus{border-color:#00c8ff;box-shadow:0 0 20px rgba(0,180,255,.5)}
+
+/* ---------- FOOTER ---------- */
+.footer{
+  text-align:center;padding:30px 16px;margin-top:30px;
+  border-top:1px solid rgba(0,180,255,.2);color:#5a8fc0;font-size:.8rem;
+}
+.footer .ahirani{color:#ffb84d;font-weight:700;margin-bottom:8px;font-size:1rem;letter-spacing:2px}
+.footer .socials{display:flex;justify-content:center;gap:14px;margin:12px 0}
+.footer .socials a{color:#7fb8ff;font-size:1.3rem;transition:.2s}
+.footer .socials a:hover{color:#00e0ff;transform:scale(1.2)}
+
+/* ---------- TOAST ---------- */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:linear-gradient(135deg,#0088ff,#00cc66);color:#fff;
+  padding:14px 24px;border-radius:60px;font-weight:700;z-index:99999;
+  box-shadow:0 10px 30px rgba(0,150,255,.6);transition:.4s;font-size:.9rem;
+  max-width:90vw;text-align:center;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.err{background:linear-gradient(135deg,#cc0044,#ff4444)}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:600px){
+  .topbar{padding:8px 12px}
+  .brand-txt h1{font-size:1.2rem}
+  .brand-txt span{font-size:.55rem}
+  .crest{width:38px;height:38px}
+  .hero{padding:28px 14px 20px}
+  .cd-box{min-width:60px;padding:8px 4px}
+  .cd-num{font-size:1.4rem}
+  .cd-lbl{font-size:.55rem}
+  .sec-title{font-size:1.3rem}
+  .prize-amt{font-size:2.2rem}
+  .match-grid{grid-template-columns:1fr}
+  .qr-frame #qrcode img{width:150px;height:150px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="topbar-left">
+    <svg class="crest" viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#00e0ff"/>
+          <stop offset="1" stop-color="#0066cc"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffd966"/>
+          <stop offset="1" stop-color="#ff8800"/>
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="46" fill="#0a1e36" stroke="url(#g1)" stroke-width="3"/>
+      <circle cx="50" cy="50" r="40" fill="none" stroke="url(#g2)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="50" y="42" text-anchor="middle" font-family="Bebas Neue" font-size="22" fill="url(#g2)" font-weight="bold">JLG19</text>
+      <text x="50" y="60" text-anchor="middle" font-family="Bebas Neue" font-size="12" fill="#7fdfff">JALGAON</text>
+      <text x="50" y="76" text-anchor="middle" font-family="Bebas Neue" font-size="10" fill="#00e0ff">BGMI</text>
+    </svg>
+    <div class="brand-txt">
+      <h1>JLG19 ESPORTS</h1>
+      <span>JALGAON • MH 425001</span>
+    </div>
+  </div>
+  <div class="top-actions">
+    <div class="icon-btn" onclick="document.getElementById('rules').scrollIntoView({behavior:'smooth'})" title="Rules"><i class="fas fa-scroll"></i></div>
+    <div class="icon-btn" onclick="document.getElementById('register').scrollIntoView({behavior:'smooth'})" title="Register"><i class="fas fa-user-plus"></i></div>
+    <div class="icon-btn" id="adminTrigger" title="Admin" style="opacity:.35;font-size:.7rem"><i class="fas fa-shield-alt"></i></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div class="hero-content">
+      <p class="tagline"><i class="fas fa-fire"></i> OFFICIAL TOURNAMENT • SEASON 2026 <i class="fas fa-fire"></i></p>
+      <h2>JALGAON BGMI CHAMPIONSHIP</h2>
+      <p class="location"><i class="fas fa-map-marker-alt"></i> JALGAON, MAHARASHTRA • PIN 425001</p>
+      <p style="color:#9dc8ff;font-size:.8rem;letter-spacing:3px;margin-top:8px;font-weight:700">📅 TUESDAY • 29 SEPTEMBER 2026 • 6:00 PM IST</p>
+      <div class="countdown-wrap">
+        <div class="cd-box"><div class="cd-num" id="cd-d">00</div><div class="cd-lbl">DAYS</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl">HOURS</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl">MINS</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl">SECS</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MEME TICKER ============ -->
+  <div class="meme-ticker">
+    <span>🎮 “Bhai chicken dinner fix karna hai” • 🔥 JLG19 = Khandesh ka Baap • 💪 “Aata yeto majha squad” • 🎯 “Ek bullet, ek kill” • 😎 “Jalgaon ma kuni pan jinkat nahi” • 🐔 “Winner winner, chicken dinner” • 💥 “Kabhi kabhi lagta hai, apun hi bhagwan hai” • 🚀 “Bhau, rush karo!” • 🎯 “Pochinki drop — no fear” • 🔥 “Ahirani power — unbeatable”</span>
+  </div>
+
+  <!-- ============ MOTIVATION ============ -->
+  <div class="motiv">
+    <p>“JINKU KA HI JINKU, HAARU KA HI HAARU”</p>
+    <small>— BGMI MANTRA 🎯 JLG19 RULE #1</small>
+  </div>
+
+  <!-- ============ PRIZE POOL ============ -->
+  <div class="section">
+    <div class="sec-title"><i class="fas fa-trophy"></i> TOTAL PRIZE POOL</div>
+    <div class="prize-hero">
+      <div class="prize-amt" id="totalPrize">₹ 60,000+</div>
+      <div class="prize-lbl">🏆 CHICKEN DINNER AWAITS 🏆</div>
+    </div>
+  </div>
+
+  <!-- ============ MATCHES ============ -->
+  <div class="section">
+    <div class="sec-title"><i class="fas fa-crosshairs"></i> MATCHES & PRIZE DISTRIBUTION</div>
+    <div class="match-grid">
+
+      <!-- SQUAD -->
+      <div class="match-card">
+        <div class="match-head">
+          <h3><i class="fas fa-users" style="color:#ff6666"></i> SQUAD</h3>
+          <span class="match-badge">1 MATCH</span>
+        </div>
+        <div class="match-time"><i class="fas fa-clock"></i> 6:00 PM IST • Erangel</div>
+        <div class="prize-rows">
+          <div class="prize-row gold"><span>🥇 Top 10 Players</span><span>₹500 each</span></div>
+          <div class="prize-row silver"><span>🥈 Top 5 Players</span><span>₹1001 each</span></div>
+          <div class="prize-row bronze"><span>🏆 Last Squad (4×3000)</span><span>₹12,000</span></div>
+        </div>
+        <div class="entry-fee">ENTRY ₹30 / PLAYER</div>
+      </div>
+
+      <!-- DUO -->
+      <div class="match-card">
+        <div class="match-head">
+          <h3><i class="fas fa-user-friends" style="color:#ffb84d"></i> DUO</h3>
+          <span class="match-badge">2 MATCHES</span>
+        </div>
+        <div class="match-time"><i class="fas fa-clock"></i> 7:00 PM & 8:00 PM • Miramar</div>
+        <div class="prize-rows">
+          <div class="prize-row gold"><span>🥇 Top 10 Players</span><span>₹500 each</span></div>
+          <div class="prize-row silver"><span>🥈 Top 5 Players</span><span>₹1001 each</span></div>
+          <div class="prize-row bronze"><span>🏆 Top 2 Duos (4×4000)</span><span>₹16,000</span></div>
+        </div>
+        <div class="entry-fee">ENTRY ₹30 / PLAYER</div>
+      </div>
+
+      <!-- SOLO -->
+      <div class="match-card">
+        <div class="match-head">
+          <h3><i class="fas fa-user" style="color:#00e0ff"></i> SOLO</h3>
+          <span class="match-badge">2 MATCHES</span>
+        </div>
+        <div class="match-time"><i class="fas fa-clock"></i> 9:00 PM & 10:00 PM • Sanhok</div>
+        <div class="prize-rows">
+          <div class="prize-row gold"><span>🥇 Top 10 Players</span><span>₹700 each</span></div>
+          <div class="prize-row silver"><span>🥈 Top 5 Players</span><span>₹1200 each</span></div>
+          <div class="prize-row bronze"><span>🏆 Top 3 Players</span><span>₹5000 each</span></div>
+        </div>
+        <div class="entry-fee">ENTRY ₹30 / PLAYER</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ PAYMENT ============ -->
+  <div class="section" id="payment">
+    <div class="sec-title"><i class="fas fa-qrcode"></i> PAY ₹30 & REGISTER</div>
+    <div class="card">
+      <div class="pay-flex">
+        <div class="qr-frame">
+          <div id="qrcode"></div>
+          <div class="qr-caption">SCAN TO PAY ₹30</div>
+        </div>
+        <div class="pay-details">
+          <div style="font-size:.85rem;color:#8ecfff;margin-bottom:8px;font-weight:600">BHARATPE UPI ID:</div>
+          <div class="upi-box" id="upiBox">
+            BHARATPE2M0W0A8G0U27213@unitype
+            <button onclick="copyUPI()"><i class="fas fa-copy"></i> COPY</button>
+          </div>
+          <a href="upi://pay?pa=BHARATPE2M0W0A8G0U27213@unitype&pn=JLG19%20BGMI&cu=INR&am=30" class="btn orange" style="text-decoration:none;margin-bottom:10px"><i class="fas fa-mobile-alt"></i> OPEN UPI APP</a>
+          <div style="font-size:.75rem;color:#7fb8ff;line-height:1.6"><i class="fas fa-info-circle"></i> After payment, copy UTR / Transaction ID from your UPI app and paste below while registering.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ REGISTRATION ============ -->
+  <div class="section" id="register">
+    <div class="sec-title"><i class="fas fa-user-plus"></i> PLAYER REGISTRATION — ₹30</div>
+    <div class="card">
+      <div class="form-grid">
+        <div class="fg"><label>Full Name</label><input type="text" id="f-name" placeholder="e.g. Rahul Patil"></div>
+        <div class="fg"><label>BGMI IGN (In-Game Name)</label><input type="text" id="f-ign" placeholder="e.g. JLG19_Sniper"></div>
+        <div class="fg"><label>BGMI UID (Game Number)</label><input type="text" id="f-uid" placeholder="e.g. 5123456789" inputmode="numeric"></div>
+        <div class="fg"><label>Email Address</label><input type="email" id="f-email" placeholder="you@example.com"></div>
+        <div class="fg"><label>WhatsApp Number</label><input type="tel" id="f-phone" placeholder="10-digit mobile" inputmode="numeric" maxlength="10"></div>
+        <div class="fg"><label>Match Category</label>
+          <select id="f-mode">
+            <option value="Solo">Solo (₹30)</option>
+            <option value="Duo">Duo (₹30 per player)</option>
+            <option value="Squad">Squad (₹30 per player)</option>
+          </select>
+        </div>
+        <div class="fg"><label>UTR / Transaction ID</label><input type="text" id="f-utr" placeholder="12-digit UTR from UPI app"></div>
+        <div class="fg"><label>Jalgaon Area (Optional)</label>
+          <select id="f-area">
+            <option value="">Select area</option>
+            <option>Shivaji Nagar</option><option>Ring Road</option><option>Mehrun</option>
+            <option>Pimprala</option><option>Bhusawal Road</option><option>Station Road</option>
+            <option>Golani Market</option><option>Ajanta Chowk</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="code-box">
+        <div class="lbl">YOUR REGISTRATION CODE</div>
+        <div class="val" id="regCode">JLG19-XXXXXX</div>
+      </div>
+      <button class="btn green" style="margin-top:16px" id="registerBtn"><i class="fas fa-check-circle"></i> SUBMIT REGISTRATION</button>
+      <button class="btn dark" style="margin-top:10px" onclick="shareWA()"><i class="fab fa-whatsapp"></i> SHARE ON WHATSAPP</button>
+    </div>
+  </div>
+
+  <!-- ============ RULES ============ -->
+  <div class="section" id="rules">
+    <div class="sec-title"><i class="fas fa-scroll"></i> TOURNAMENT RULES</div>
+    <div class="card">
+      <ul class="rules-list">
+        <li><i class="fas fa-mobile-alt"></i> Only mobile devices. Emulator / PC = permanent ban.</li>
+        <li><i class="fas fa-user-check"></i> UID must be genuine & match IGN.</li>
+        <li><i class="fas fa-clock"></i> Room ID & password sent on WhatsApp 15 min before match.</li>
+        <li><i class="fas fa-ban"></i> No hacking, no teaming, no abusing — instant DQ.</li>
+        <li><i class="fas fa-rupee-sign"></i> Entry fee ₹30 per player. Non-refundable after slot confirmation.</li>
+        <li><i class="fas fa-receipt"></i> UTR must be valid. Fake UTR = disqualification + no refund.</li>
+        <li><i class="fas fa-user-tie"></i> JLG19 admins' decision is final in all disputes.</li>
+        <li><i class="fas fa-video"></i> Screen recording recommended for proof of gameplay.</li>
+        <li><i class="fas fa-trophy"></i> Prize money credited within 48 hours via UPI/Google Pay.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ SLOGANS ============ -->
+  <div class="section">
+    <div class="sec-title"><i class="fas fa-bullhorn"></i> JALGAON / KHANDESH SLOGANS</div>
+    <div class="slogan-strip">
+      <div class="slogan-card">जळगावचा अस्सल टायगर 🐯<small>JALGAON'S REAL TIGER</small></div>
+      <div class="slogan-card">खान्देशचा राजा, जिंकायचा राजा 👑<small>KHANDESH KING WINS</small></div>
+      <div class="slogan-card">आता येतो माझा स्क्वाड 🔥<small>MY SQUAD ARRIVES NOW</small></div>
+      <div class="slogan-card">भाऊ, रश करो! 💥<small>BRO, RUSH!</small></div>
+      <div class="slogan-card">एक बुलेट, एक किल 🎯<small>ONE BULLET ONE KILL</small></div>
+      <div class="slogan-card">जळगाव मध्ये कुणीच जिंकत नाही 😎<small>NOBODY BEATS JALGAON</small></div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="footer">
+    <div class="ahirani">🦁 जय जळगाव • जय खान्देश • JLG19 FOREVER 🦁</div>
+    <div class="socials">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+      <a href="#"><i class="fab fa-discord"></i></a>
+    </div>
+    <div>© 2026 JLG19 Esports • Jalgaon, Maharashtra 425001</div>
+    <div style="margin-top:6px;font-size:.7rem;color:#3a6a94">Made with ❤️ for Khandesh gamers</div>
+  </div>
+
+</div>
+
+<!-- ============ ADMIN LOCK ============ -->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <i class="fas fa-shield-halved"></i>
+    <h3>ADMIN ACCESS</h3>
+    <p>Enter password to continue</p>
+    <input type="password" id="adminPass" placeholder="••••••••" autocomplete="off">
+    <button class="btn" id="unlockBtn">UNLOCK DASHBOARD</button>
+    <button class="btn dark" style="margin-top:8px" onclick="closeLock()">CANCEL</button>
+  </div>
+</div>
+
+<!-- ============ ADMIN MODAL ============ -->
+<div class="modal-bg" id="adminModal">
+  <div class="modal">
+    <h2><span><i class="fas fa-tachometer-alt"></i> ADMIN DASHBOARD</span><button onclick="closeAdmin()"><i class="fas fa-times"></i></button></h2>
+    <div class="admin-stats">
+      <div class="stat-box"><div class="num" id="s-total">0</div><div class="lbl">TOTAL</div></div>
+      <div class="stat-box"><div class="num" id="s-solo">0</div><div class="lbl">SOLO</div></div>
+      <div class="stat-box"><div class="num" id="s-duo">0</div><div class="lbl">DUO</div></div>
+      <div class="stat-box"><div class="num" id="s-squad">0</div><div class="lbl">SQUAD</div></div>
+      <div class="stat-box"><div class="num" id="s-money">₹0</div><div class="lbl">COLLECTED</div></div>
+    </div>
+    <div class="admin-tools">
+      <input type="text" id="adminSearch" placeholder="🔍 Search by name, IGN, UID, code...">
+      <button onclick="exportCSV()"><i class="fas fa-download"></i> CSV</button>
+      <button onclick="clearAll()" style="background:rgba(255,50,50,.2);border-color:#ff4444;color:#ff9999"><i class="fas fa-trash"></i> CLEAR ALL</button>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>Code</th><th>Name</th><th>IGN</th><th>UID</th><th>Email</th><th>Phone</th><th>Mode</th><th>UTR</th><th>Area</th><th>Status</th>
+        </tr></thead>
+        <tbody id="adminTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= CONFIG ================= */
+const ADMIN_PASSWORD = "JLG19@2026";   // 🔐 CHANGE THIS!
+const UPI_ID = "BHARATPE2M0W0A8G0U27213@unitype";
+const ENTRY_FEE = 30;
+const TARGET_DATE = new Date("2026-09-29T18:00:00+05:30").getTime();
+
+/* ================= QR ================= */
+window.addEventListener('load',()=>{
+  const box=document.getElementById('qrcode');
+  box.innerHTML='';
+  new QRCode(box,{
+    text:`upi://pay?pa=${UPI_ID}&pn=JLG19%20BGMI&cu=INR&am=30`,
+    width:180,height:180,colorDark:"#0a1e36",colorLight:"#ffffff",
+    correctLevel:QRCode.CorrectLevel.H
+  });
+});
+
+/* ================= COUNTDOWN ================= */
+function tick(){
+  const now=Date.now();
+  let diff=TARGET_DATE-now;
+  if(diff<0){
+    document.getElementById('cd-d').textContent='LIVE';
+    document.getElementById('cd-h').textContent='🔥';
+    document.getElementById('cd-m').textContent='🔥';
+    document.getElementById('cd-s').textContent='🔥';
+    return;
+  }
+  const d=Math.floor(diff/86400000); diff%=86400000;
+  const h=Math.floor(diff/3600000); diff%=3600000;
+  const m=Math.floor(diff/60000); diff%=60000;
+  const s=Math.floor(diff/1000);
+  document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+}
+tick(); setInterval(tick,1000);
+
+/* ================= TOAST ================= */
+function toast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast show'+(err?' err':'');
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>t.className='toast'+(err?' err':''),3200);
+}
+
+/* ================= COPY UPI ================= */
+function copyUPI(){
+  navigator.clipboard.writeText(UPI_ID).then(()=>toast('✅ UPI ID copied!')).catch(()=>toast('Copy failed',true));
+}
+
+/* ================= SHARE WA ================= */
+function shareWA(){
+  const txt=`🎮 JLG19 BGMI TOURNAMENT 🎮\n📅 29 Sept 2026 • 6PM\n📍 Jalgaon, MH 425001\n💰 Entry ₹30\n🏆 Prize Pool ₹60,000+\n\nRegister: ${location.href}`;
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+
+/* ================= STORAGE ================= */
+let regs = JSON.parse(localStorage.getItem('jlg19_regs')||'[]');
+function save(){localStorage.setItem('jlg19_regs',JSON.stringify(regs))}
+
+function genCode(){
+  const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code='JLG19-';
+  for(let i=0;i<6;i++) code+=c[Math.floor(Math.random()*c.length)];
+  return regs.some(r=>r.code===code)?genCode():code;
+}
+
+/* ================= REGISTER ================= */
+document.getElementById('registerBtn').onclick=()=>{
+  const name=document.getElementById('f-name').value.trim();
+  const ign=document.getElementById('f-ign').value.trim();
+  const uid=document.getElementById('f-uid').value.trim();
+  const email=document.getElementById('f-emailclick').value.trim();
+  const phone=document.getElementById('=f-phone').value.trim();
+  const() mode=document.getElementById('f-mode').=>value;
+  const utr=document{
+.getElementById('f-utr').value .trim();
+  const area=document.getElementById('f-area').value;
+
+  if(!name||!ign||!uid||!email||!phone||!utr){
+    toast('❌ All fields required!',true);return;
+  }
+  if(!/^\d{9,12}$/.test(uid)){
+    toast('❌ UID must be 9–12 digits',true);return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    toast('❌ Invalid email',true);return;
+  }
+  if(!/^\d{10}$/.test(phone)){
+    toast('❌ Phone must be 10 digits',true);return;
+  }
+  if(utr.length<8){
+    toast('❌ UTR too short (min 8 chars)',true);return;
+  }
+  if(regs.some(r=>r.utr===utr)){
+    toast('❌ UTR already used!',true);return;
+  }
+  if(regs.some(r=>r.uid===uid)){
+    toast('❌ UID already registered!',true);return;
+  }
+
+  const code=genCode();
+  const reg={code,name,ign,uid,email,phone,mode,utr,area,status:'Pending',
+             amount:ENTRY_FEE,time:Date.now()};
+  regs.push(reg); save();
+  document.getElementById('regCode').textContent=code;
+
+  // clear
+  ['f-name','f-ign','f-uid','f-email','f-phone','f-utr'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-area').value='';
+
+  toast(`✅ Registered! Your code: ${code}`);
+  renderAdmin();
+};
+
+/* ================= ADMIN ================= */
+let unlocked=false;
+
+document.getElementById('adminTrigger').on if(unlocked){ openAdmin(); return; }
+  document.getElementById('lockScreen').classList.add('show');
+  setTimeout(()=>document.getElementById('adminPass').focus(),100);
+};
+function closeLock(){
+  document.getElementById('lockScreen').classList.remove('show');
+  document.getElementById('adminPass').value='';
+}
+document.getElementById('unlockBtn').onclick=()=>{
+  const p=document.getElementById('adminPass').value;
+  if(p===ADMIN_PASSWORD){
+    unlocked=true; closeLock(); openAdmin();
+    toast('🔓 Admin unlocked');
+  } else {
+    toast('❌ Wrong password',true);
+    document.getElementById('adminPass').value='';
+  }
+};
+document.getElementById('adminPass').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('unlockBtn').click()});
+
+function openAdmin(){
+  document.getElementById('adminModal').classList.add('show');
+  renderAdmin();
+}
+function closeAdmin(){
+  document.getElementById('adminModal').classList.remove('show');
+}
+
+/* ================= RENDER ADMIN ================= */
+function renderAdmin(){
+  const q=(document.getElementById('adminSearch').value||'').toLowerCase();
+  const list=regs.filter(r=>
+    !q ||
+    r.name.toLowerCase().includes(q) ||
+    r.ign.toLowerCase().includes(q) ||
+    r.uid.includes(q) ||
+    r.code.toLowerCase().includes(q) ||
+    r.email.toLowerCase().includes(q) ||
+    r.phone.includes(q)
+  );
+  const tb=document.getElementById('adminTbody');
+  if(list.length===0){
+    tb.innerHTML=`<tr><td colspan="10" class="empty">No registrations yet</td></tr>`;
+  } else {
+    tb.innerHTML=list.map(r=>`
+      <tr>
+        <td><b style="color:#ffd966">${r.code}</b></td>
+        <td>${r.name}</td>
+        <td>${r.ign}</td>
+        <td>${r.uid}</td>
+        <td>${r.email}</td>
+        <td>${r.phone}</td>
+        <td><span class="pill ${r.mode.toLowerCase()}">${r.mode}</span></td>
+        <td style="font-family:monospace">${r.utr}</td>
+        <td>${r.area||'-'}</td>
+        <td><span class="pill ${r.status==='Paid'?'paid':'pending'}">${r.status}</span></td>
+      </tr>
+    `).join('');
+  }
+
+  // stats
+  document.getElementById('s-total').textContent=regs.length;
+  document.getElementById('s-solo').textContent=regs.filter(r=>r.mode==='Solo').length;
+  document.getElementById('s-duo').textContent=regs.filter(r=>r.mode==='Duo').length;
+  document.getElementById('s-squad').textContent=regs.filter(r=>r.mode==='Squad').length;
+  document.getElementById('s-money').textContent='₹'+(regs.length*ENTRY_FEE);
+}
+document.getElementById('adminSearch').addEventListener('input',renderAdmin);
+
+/* ================= EXPORT CSV ================= */
+function exportCSV(){
+  if(regs.length===0){ toast('No data to export',true); return; }
+  const headers=['Code','Name','IGN','UID','Email','Phone','Mode','UTR','Area','Amount','Status','Time'];
+  const rows=regs.map(r=>[r.code,r.name,r.ign,r.uid,r.email,r.phone,r.mode,r.utr,r.area||'',r.amount,r.status,new Date(r.time).toLocaleString()]);
+  const csv=[headers,...rows].map(row=>row.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`JLG19_registrations_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  toast('📥 CSV downloaded');
+}
+
+/* ================= CLEAR ALL ================= */
+function clearAll(){
+  if(!confirm('Delete ALL registrations? This cannot be undone.')) return;
+  if(!confirm('Are you REALLY sure?')) return;
+  regs=[]; save(); renderAdmin();
+  toast('🗑️ All data cleared');
+}
+
+/* ================= PRIZE POOL (dynamic) ================= */
+function updatePrize(){
+  const base=60000;
+  const extra=regs.length*100;
+  document.getElementById('totalPrize').textContent='₹ '+(base+extra).toLocaleString('en-IN')+'+';
+}
+updatePrize();
+
+/* ================= INIT ================= */
+renderAdmin();
+</script>
+</body>
+</html>
